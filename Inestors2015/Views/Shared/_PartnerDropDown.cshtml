@@ -1,0 +1,58 @@
+﻿@model Investors2015.ViewModels.PartnerDropDownViewModel
+
+<link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
+<script src="~/ScriptsInvestors/jquery-ui.min.js"></script>
+<script src="~/ScriptsInvestors/partnerSearchTxtBox.js"></script>
+
+
+@using (@Html.BeginForm(null, null, FormMethod.Post, new { name = "mikaForma", id = "mikaForma" }))
+{
+
+    @Html.DropDownListFor(m => m.SelectListPartners.SelectedValue, Model.SelectListPartners,
+        new
+        {
+            @class = "form-control btn btn-default dropdown-toggle",
+            style = "width: auto;"
+        })
+
+   
+
+<br />
+    @Html.Hidden("SelectedPartnerName", Model.SelectListPartners.ToList()[(int)Model.SelectListPartners.SelectedValue].Text, new
+    {
+        @class = "SelectedDatabaseName",
+    })
+
+    @Html.TextBox("SearchPartnerPhrase", null, new
+    {
+        id = "txtPartnerSearchPhrase",
+        @class = "form-control"
+    })
+
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    
+    @Html.TextBox("numberOfPartners", null, new
+    {
+        id = "txtnumberOfPartners",
+        @class = "form-control"
+    })
+
+
+    <br />
+    @Html.TextBox("SearchPartnerId", null, new
+    {
+        id = "txtSearchPartnerId",
+        @class = "form-control"
+    })
+
+}
+Time now is @DateTime.Now.ToLongTimeString();
+
+
+
+

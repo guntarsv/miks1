@@ -1,0 +1,17 @@
+﻿@model Investors2015.ViewModels.DatabaseDropDownViewModel
+
+
+@Html.DropDownListFor(m => m.SelectListDatabases.SelectedValue, Model.SelectListDatabases, "izvēlies db",
+                new
+                {
+                    @class = "form-control btn btn-default dropdown-toggle",
+                    style = "width: auto;"
+                })
+@Html.HiddenFor(m => m.SelectListDatabases.SelectedValue, new { @Name="buba",  @class = "SelectedDatabaseName" })
+
+
+@*@Html.Hidden("SelectedDatabaseName", Model.SelectListDatabases.ToList()[(int)Model.SelectListDatabases.SelectedValue].Text, new
+{
+     @class = "SelectedDatabaseName",
+})*@
+

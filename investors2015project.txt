@@ -1,0 +1,39 @@
+1.Customize look
+
+http://bootswatch.com/cerulean/, donload theme, create css file in Content folder.
+in BundleConfig.css change css file name to created.
+darkly  cerulean, united, jetti.-clean  cosmo is interesting, spacelab is ok, superhero?
+
+2) change localDB in VS to IIS (asp net authentication using sql express.txt)	
+	public ApplicationDbContext()
+            : base("investorsNET", throwIfV1Schema: false) - lai autorizâcijas datubâzi uztaisîtu investorsNET.
+3) introduce new pool for this application in IIS
+4) koriìçjam paroles validâciju - IdentityCOnfig.cs, sadaïa manager.PasswordValidator, lai nebût jâvada garas paroles
+5) ievieðam SSL, jo itkâ to vajag, lai darbotos google uc logini. kudvenkat ir labi par to, uztaisâm sertifikâtu investorsNET.
+	pçc tam defaultwebsite - bindings un pievienojam sertifikâtu ssl uzstâdîjumiem.
+6) ievieðam google autentifikâciju. 
+	http://www.asp.net/mvc/overview/security/create-an-aspnet-mvc-5-app-with-facebook-and-google-oauth2-and-openid-sign-on
+	ejam  - https://console.developers.google.com/project, saliekam uzstâdîjumus, eneiblojam google+ API
+		Authorized JavaScriptOrigins = https://localhost/
+		Authorized redirect URIs = https://localhost/WebApplication5/signin-google (aplikâcijas nosaukumu izvçlamies atbilstoði
+			virtuâlâ foldera nosaukumam IIS 'WebApplication5 vietâ')
+	app.UseGoogleAuthenitaction ierakstâm clientID un ClientSecret
+5) ievieðam redirektu - pçc kudvankata, lai visi http redirektçtos uz https. bet to ðeit iesâkumâ nedarâm.
+
+6) uztaisâm shared folderî _LayoutData failu, kur neatíesçjam ne master neko un tajâ izdzçsâm sadaïu, kurâ definçts layout (jo ðis pats ir layout)
+
+7) lai dropdown nebûtu miljons datubâþu - site.css pieliekam 
+	.menu-scroll {
+    		overflow-y: scroll;
+    		max-height: 200px;
+	} un pieliekam ul klasi menu-scroll
+
+8) uztaisâm klasi datubâzes, lai varçtu pçc tam operçt.
+
+9) PM> install-package automapper (lai varçtu mapot obejtus ar viewmodel)
+
+10) 
+
+
+
+

@@ -1,0 +1,865 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="invest2014Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="AccountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccountCode" Type="nvarchar" MaxLength="21" />
+          <Property Name="AccountName" Type="nvarchar" MaxLength="50" />
+          <Property Name="AccountLocation" Type="nvarchar" MaxLength="255" />
+          <Property Name="AnalyticalAccount" Type="bit" Nullable="false" />
+          <Property Name="BalanceGroup" Type="tinyint" Nullable="false" />
+          <Property Name="SyntheticAccountID" Type="int" />
+        </EntityType>
+        <EntityType Name="DocumentGroup">
+          <Key>
+            <PropertyRef Name="DocumentGroupID" />
+          </Key>
+          <Property Name="DocumentGroupID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="GroupShortName" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="GroupOrder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DocumentType">
+          <Key>
+            <PropertyRef Name="DocumentTypeID" />
+          </Key>
+          <Property Name="DocumentTypeID" Type="int" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TypeShortName" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="CategoryAccountSide" Type="int" Nullable="false" />
+          <Property Name="DefaultDocumentGroup" Type="int" />
+          <Property Name="WarehouseDocumentType" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FinancialDoc">
+          <Key>
+            <PropertyRef Name="FinancialDocID" />
+          </Key>
+          <Property Name="FinancialDocID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FinancialDocNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="FinancialDocNoSerial" Type="nvarchar" MaxLength="20" />
+          <Property Name="DocumentTypeID" Type="int" Nullable="false" />
+          <Property Name="DocumentGroupID" Type="int" Nullable="false" />
+          <Property Name="AccountingObjectID" Type="int" />
+          <Property Name="FinancialDocDate" Type="datetime" Nullable="false" />
+          <Property Name="DocStatus" Type="tinyint" Nullable="false" />
+          <Property Name="DocChangeStatus" Type="tinyint" Nullable="false" />
+          <Property Name="DocCurrencyID" Type="int" Nullable="false" />
+          <Property Name="DocAmount" Type="money" Nullable="false" />
+          <Property Name="DocAmountLocked" Type="bit" Nullable="false" />
+          <Property Name="PartnerID" Type="int" />
+          <Property Name="PartnerVatCountryID" Type="int" />
+          <Property Name="PartnerVatNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="PartnerContactPerson" Type="nvarchar" MaxLength="255" />
+          <Property Name="CompanyVatCountryID" Type="int" />
+          <Property Name="CompanyVatNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContactID" Type="int" />
+          <Property Name="CancelDocID" Type="int" />
+          <Property Name="DisbursementTerm" Type="datetime" />
+          <Property Name="Disbursement" Type="bit" Nullable="false" />
+          <Property Name="DisbursementDate" Type="datetime" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="255" />
+          <Property Name="DocRegDate" Type="datetime" />
+          <Property Name="DocRegNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="DocRegNoIndex" Type="nvarchar" MaxLength="55" StoreGeneratedPattern="Computed" />
+          <Property Name="SemoDocGUID" Type="uniqueidentifier" />
+          <Property Name="CreateUserID" Type="int" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="UpdateUserID" Type="int" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="DocComputedNo" Type="varchar" MaxLength="800" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="FinancialDocLine">
+          <Key>
+            <PropertyRef Name="FinancialDocLineID" />
+          </Key>
+          <Property Name="FinancialDocLineID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FinancialDocID" Type="int" Nullable="false" />
+          <Property Name="LineDate" Type="datetime" />
+          <Property Name="CurrencyID" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="money" Nullable="false" />
+          <Property Name="DebetID" Type="int" Nullable="false" />
+          <Property Name="CreditID" Type="int" Nullable="false" />
+          <Property Name="MainLine" Type="bit" Nullable="false" />
+          <Property Name="BudgetItemID" Type="int" />
+          <Property Name="PayCode" Type="nchar" MaxLength="3" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="255" />
+          <Property Name="VatRate" Type="money" />
+          <Property Name="DisbursementDocID" Type="int" />
+        </EntityType>
+        <EntityType Name="Partner">
+          <Key>
+            <PropertyRef Name="PartnerID" />
+          </Key>
+          <Property Name="PartnerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PhysicalPerson" Type="tinyint" Nullable="false" />
+          <Property Name="PartnerName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="PartnerTitle" Type="nvarchar" MaxLength="50" />
+          <Property Name="PartnerCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="PartnerTypeID" Type="int" />
+          <Property Name="TerritorialCodeSEZ" Type="nvarchar" MaxLength="50" />
+          <Property Name="BlockedPartner" Type="bit" Nullable="false" />
+          <Property Name="LockedPartner" Type="bit" Nullable="false" />
+          <Property Name="ProductSupplier" Type="bit" Nullable="false" />
+          <Property Name="ProductWarehouse" Type="bit" Nullable="false" />
+          <Property Name="Forwarder" Type="bit" Nullable="false" />
+          <Property Name="SemoSubscriber" Type="bit" Nullable="false" />
+          <Property Name="TaxTypeID" Type="int" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="WebURL" Type="nvarchar" MaxLength="50" />
+          <Property Name="Fax" Type="nvarchar" MaxLength="50" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="1000" />
+          <Property Name="CommentsPrintable" Type="nvarchar" MaxLength="1000" />
+          <Property Name="CompanyRegistrationNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhysicalPersonFirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhysicalPersonIdentityNo" Type="nvarchar" MaxLength="12" />
+          <Property Name="PhysicalPersonTerritorialCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhysicalPersonAdvancePartner" Type="bit" />
+          <Property Name="PhysicalPersonGender" Type="tinyint" />
+          <Property Name="PhysicalPersonPassportOrganization" Type="nvarchar" MaxLength="255" />
+          <Property Name="PhysicalPersonPassportNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhysicalPersonPassportDate" Type="datetime" />
+          <Property Name="PhysicalPersonTaxDocumentSerial" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhysicalPersonTaxDocumentNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhysicalPersonTaxDocumentOrganization" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhysicalPersonTaxRegNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhysicalPersonPensioner" Type="bit" />
+          <Property Name="PhysicalPersonPrisoner" Type="bit" />
+          <Property Name="PhysicalPersonTaxSocialTypeID" Type="int" />
+          <Property Name="PhysicalPersonBirthDate" Type="datetime" />
+          <Property Name="PhysicalPersonIncomeTypeID" Type="int" />
+          <Property Name="PhysicalPersonURVNamount" Type="bit" />
+          <Property Name="PhysicalPersonFirstNameDative" Type="nvarchar" MaxLength="50" />
+          <Property Name="PartnerNameDative" Type="nvarchar" MaxLength="255" />
+          <Property Name="PhysicalPersonFirstNameAccusative" Type="nvarchar" MaxLength="50" />
+          <Property Name="PartnerNameAccusative" Type="nvarchar" MaxLength="255" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="GLNCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateUserID" Type="int" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="UpdateUserID" Type="int" />
+        </EntityType>
+        <Association Name="FK_Account_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="Account1" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="Account1">
+              <PropertyRef Name="SyntheticAccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DocumentType_DocumentGroup">
+          <End Role="DocumentGroup" Type="Self.DocumentGroup" Multiplicity="0..1" />
+          <End Role="DocumentType" Type="Self.DocumentType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocumentGroup">
+              <PropertyRef Name="DocumentGroupID" />
+            </Principal>
+            <Dependent Role="DocumentType">
+              <PropertyRef Name="DefaultDocumentGroup" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FinancialDoc_DocumentGroup">
+          <End Role="DocumentGroup" Type="Self.DocumentGroup" Multiplicity="1" />
+          <End Role="FinancialDoc" Type="Self.FinancialDoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocumentGroup">
+              <PropertyRef Name="DocumentGroupID" />
+            </Principal>
+            <Dependent Role="FinancialDoc">
+              <PropertyRef Name="DocumentGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FinancialDoc_DocumentType">
+          <End Role="DocumentType" Type="Self.DocumentType" Multiplicity="1" />
+          <End Role="FinancialDoc" Type="Self.FinancialDoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocumentType">
+              <PropertyRef Name="DocumentTypeID" />
+            </Principal>
+            <Dependent Role="FinancialDoc">
+              <PropertyRef Name="DocumentTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FinancialDoc_FinancialDoc">
+          <End Role="FinancialDoc" Type="Self.FinancialDoc" Multiplicity="0..1" />
+          <End Role="FinancialDoc1" Type="Self.FinancialDoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FinancialDoc">
+              <PropertyRef Name="FinancialDocID" />
+            </Principal>
+            <Dependent Role="FinancialDoc1">
+              <PropertyRef Name="CancelDocID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FinancialDoc_Partner">
+          <End Role="Partner" Type="Self.Partner" Multiplicity="0..1" />
+          <End Role="FinancialDoc" Type="Self.FinancialDoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partner">
+              <PropertyRef Name="PartnerID" />
+            </Principal>
+            <Dependent Role="FinancialDoc">
+              <PropertyRef Name="PartnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FinancialDoc_Partner2">
+          <End Role="Partner" Type="Self.Partner" Multiplicity="0..1" />
+          <End Role="FinancialDoc" Type="Self.FinancialDoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partner">
+              <PropertyRef Name="PartnerID" />
+            </Principal>
+            <Dependent Role="FinancialDoc">
+              <PropertyRef Name="ContactID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FinancialDocLine_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="FinancialDocLine" Type="Self.FinancialDocLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="FinancialDocLine">
+              <PropertyRef Name="DebetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FinancialDocLine_Account1">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="FinancialDocLine" Type="Self.FinancialDocLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="FinancialDocLine">
+              <PropertyRef Name="CreditID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FinancialDocLine_DisbursementDoc">
+          <End Role="FinancialDoc" Type="Self.FinancialDoc" Multiplicity="0..1" />
+          <End Role="FinancialDocLine" Type="Self.FinancialDocLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FinancialDoc">
+              <PropertyRef Name="FinancialDocID" />
+            </Principal>
+            <Dependent Role="FinancialDocLine">
+              <PropertyRef Name="DisbursementDocID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FinancialDocLine_FinancialDoc">
+          <End Role="FinancialDoc" Type="Self.FinancialDoc" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FinancialDocLine" Type="Self.FinancialDocLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FinancialDoc">
+              <PropertyRef Name="FinancialDocID" />
+            </Principal>
+            <Dependent Role="FinancialDocLine">
+              <PropertyRef Name="FinancialDocID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="invest2014ModelStoreContainer">
+          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DocumentGroup" EntityType="Self.DocumentGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DocumentType" EntityType="Self.DocumentType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FinancialDoc" EntityType="Self.FinancialDoc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FinancialDocLine" EntityType="Self.FinancialDocLine" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Partner" EntityType="Self.Partner" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Account_Account" Association="Self.FK_Account_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Account1" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DocumentType_DocumentGroup" Association="Self.FK_DocumentType_DocumentGroup">
+            <End Role="DocumentGroup" EntitySet="DocumentGroup" />
+            <End Role="DocumentType" EntitySet="DocumentType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FinancialDoc_DocumentGroup" Association="Self.FK_FinancialDoc_DocumentGroup">
+            <End Role="DocumentGroup" EntitySet="DocumentGroup" />
+            <End Role="FinancialDoc" EntitySet="FinancialDoc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FinancialDoc_DocumentType" Association="Self.FK_FinancialDoc_DocumentType">
+            <End Role="DocumentType" EntitySet="DocumentType" />
+            <End Role="FinancialDoc" EntitySet="FinancialDoc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FinancialDoc_FinancialDoc" Association="Self.FK_FinancialDoc_FinancialDoc">
+            <End Role="FinancialDoc" EntitySet="FinancialDoc" />
+            <End Role="FinancialDoc1" EntitySet="FinancialDoc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FinancialDoc_Partner" Association="Self.FK_FinancialDoc_Partner">
+            <End Role="Partner" EntitySet="Partner" />
+            <End Role="FinancialDoc" EntitySet="FinancialDoc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FinancialDoc_Partner2" Association="Self.FK_FinancialDoc_Partner2">
+            <End Role="Partner" EntitySet="Partner" />
+            <End Role="FinancialDoc" EntitySet="FinancialDoc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FinancialDocLine_Account" Association="Self.FK_FinancialDocLine_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="FinancialDocLine" EntitySet="FinancialDocLine" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FinancialDocLine_Account1" Association="Self.FK_FinancialDocLine_Account1">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="FinancialDocLine" EntitySet="FinancialDocLine" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FinancialDocLine_DisbursementDoc" Association="Self.FK_FinancialDocLine_DisbursementDoc">
+            <End Role="FinancialDoc" EntitySet="FinancialDoc" />
+            <End Role="FinancialDocLine" EntitySet="FinancialDocLine" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FinancialDocLine_FinancialDoc" Association="Self.FK_FinancialDocLine_FinancialDoc">
+            <End Role="FinancialDoc" EntitySet="FinancialDoc" />
+            <End Role="FinancialDocLine" EntitySet="FinancialDocLine" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="invest2014Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="AccountID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountCode" Type="String" MaxLength="21" FixedLength="false" Unicode="true" />
+          <Property Name="AccountName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AccountLocation" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AnalyticalAccount" Type="Boolean" Nullable="false" />
+          <Property Name="BalanceGroup" Type="Byte" Nullable="false" />
+          <Property Name="SyntheticAccountID" Type="Int32" />
+          <NavigationProperty Name="Account1" Relationship="Self.FK_Account_Account" FromRole="Account" ToRole="Account1" />
+          <NavigationProperty Name="Account2" Relationship="Self.FK_Account_Account" FromRole="Account1" ToRole="Account" />
+          <NavigationProperty Name="FinancialDocLines" Relationship="Self.FK_FinancialDocLine_Account" FromRole="Account" ToRole="FinancialDocLine" />
+          <NavigationProperty Name="FinancialDocLines1" Relationship="Self.FK_FinancialDocLine_Account1" FromRole="Account" ToRole="FinancialDocLine" />
+        </EntityType>
+        <EntityType Name="DocumentGroup">
+          <Key>
+            <PropertyRef Name="DocumentGroupID" />
+          </Key>
+          <Property Name="DocumentGroupID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GroupShortName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GroupOrder" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DocumentTypes" Relationship="Self.FK_DocumentType_DocumentGroup" FromRole="DocumentGroup" ToRole="DocumentType" />
+          <NavigationProperty Name="FinancialDocs" Relationship="Self.FK_FinancialDoc_DocumentGroup" FromRole="DocumentGroup" ToRole="FinancialDoc" />
+        </EntityType>
+        <EntityType Name="DocumentType">
+          <Key>
+            <PropertyRef Name="DocumentTypeID" />
+          </Key>
+          <Property Name="DocumentTypeID" Type="Int32" Nullable="false" />
+          <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TypeShortName" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CategoryAccountSide" Type="Int32" Nullable="false" />
+          <Property Name="DefaultDocumentGroup" Type="Int32" />
+          <Property Name="WarehouseDocumentType" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="DocumentGroup" Relationship="Self.FK_DocumentType_DocumentGroup" FromRole="DocumentType" ToRole="DocumentGroup" />
+          <NavigationProperty Name="FinancialDocs" Relationship="Self.FK_FinancialDoc_DocumentType" FromRole="DocumentType" ToRole="FinancialDoc" />
+        </EntityType>
+        <EntityType Name="FinancialDoc">
+          <Key>
+            <PropertyRef Name="FinancialDocID" />
+          </Key>
+          <Property Name="FinancialDocID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FinancialDocNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FinancialDocNoSerial" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentTypeID" Type="Int32" Nullable="false" />
+          <Property Name="DocumentGroupID" Type="Int32" Nullable="false" />
+          <Property Name="AccountingObjectID" Type="Int32" />
+          <Property Name="FinancialDocDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DocStatus" Type="Byte" Nullable="false" />
+          <Property Name="DocChangeStatus" Type="Byte" Nullable="false" />
+          <Property Name="DocCurrencyID" Type="Int32" Nullable="false" />
+          <Property Name="DocAmount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="DocAmountLocked" Type="Boolean" Nullable="false" />
+          <Property Name="PartnerID" Type="Int32" />
+          <Property Name="PartnerVatCountryID" Type="Int32" />
+          <Property Name="PartnerVatNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PartnerContactPerson" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyVatCountryID" Type="Int32" />
+          <Property Name="CompanyVatNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactID" Type="Int32" />
+          <Property Name="CancelDocID" Type="Int32" />
+          <Property Name="DisbursementTerm" Type="DateTime" Precision="3" />
+          <Property Name="Disbursement" Type="Boolean" Nullable="false" />
+          <Property Name="DisbursementDate" Type="DateTime" Precision="3" />
+          <Property Name="Comments" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DocRegDate" Type="DateTime" Precision="3" />
+          <Property Name="DocRegNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DocRegNoIndex" Type="String" MaxLength="55" FixedLength="false" Unicode="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="SemoDocGUID" Type="Guid" />
+          <Property Name="CreateUserID" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateUserID" Type="Int32" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="DocComputedNo" Type="String" MaxLength="800" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="DocumentGroup" Relationship="Self.FK_FinancialDoc_DocumentGroup" FromRole="FinancialDoc" ToRole="DocumentGroup" />
+          <NavigationProperty Name="DocumentType" Relationship="Self.FK_FinancialDoc_DocumentType" FromRole="FinancialDoc" ToRole="DocumentType" />
+          <NavigationProperty Name="FinancialDoc1" Relationship="Self.FK_FinancialDoc_FinancialDoc" FromRole="FinancialDoc" ToRole="FinancialDoc1" />
+          <NavigationProperty Name="FinancialDoc2" Relationship="Self.FK_FinancialDoc_FinancialDoc" FromRole="FinancialDoc1" ToRole="FinancialDoc" />
+          <NavigationProperty Name="Partner" Relationship="Self.FK_FinancialDoc_Partner" FromRole="FinancialDoc" ToRole="Partner" />
+          <NavigationProperty Name="Partner1" Relationship="Self.FK_FinancialDoc_Partner2" FromRole="FinancialDoc" ToRole="Partner" />
+          <NavigationProperty Name="FinancialDocLines" Relationship="Self.FK_FinancialDocLine_DisbursementDoc" FromRole="FinancialDoc" ToRole="FinancialDocLine" />
+          <NavigationProperty Name="FinancialDocLines1" Relationship="Self.FK_FinancialDocLine_FinancialDoc" FromRole="FinancialDoc" ToRole="FinancialDocLine" />
+        </EntityType>
+        <EntityType Name="FinancialDocLine">
+          <Key>
+            <PropertyRef Name="FinancialDocLineID" />
+          </Key>
+          <Property Name="FinancialDocLineID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FinancialDocID" Type="Int32" Nullable="false" />
+          <Property Name="LineDate" Type="DateTime" Precision="3" />
+          <Property Name="CurrencyID" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="DebetID" Type="Int32" Nullable="false" />
+          <Property Name="CreditID" Type="Int32" Nullable="false" />
+          <Property Name="MainLine" Type="Boolean" Nullable="false" />
+          <Property Name="BudgetItemID" Type="Int32" />
+          <Property Name="PayCode" Type="String" MaxLength="3" FixedLength="true" Unicode="true" />
+          <Property Name="Comments" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="VatRate" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DisbursementDocID" Type="Int32" />
+          <NavigationProperty Name="Account" Relationship="Self.FK_FinancialDocLine_Account" FromRole="FinancialDocLine" ToRole="Account" />
+          <NavigationProperty Name="Account1" Relationship="Self.FK_FinancialDocLine_Account1" FromRole="FinancialDocLine" ToRole="Account" />
+          <NavigationProperty Name="FinancialDoc" Relationship="Self.FK_FinancialDocLine_DisbursementDoc" FromRole="FinancialDocLine" ToRole="FinancialDoc" />
+          <NavigationProperty Name="FinancialDoc1" Relationship="Self.FK_FinancialDocLine_FinancialDoc" FromRole="FinancialDocLine" ToRole="FinancialDoc" />
+        </EntityType>
+        <EntityType Name="Partner">
+          <Key>
+            <PropertyRef Name="PartnerID" />
+          </Key>
+          <Property Name="PartnerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PhysicalPerson" Type="Byte" Nullable="false" />
+          <Property Name="PartnerName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PartnerTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PartnerCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PartnerTypeID" Type="Int32" />
+          <Property Name="TerritorialCodeSEZ" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BlockedPartner" Type="Boolean" Nullable="false" />
+          <Property Name="LockedPartner" Type="Boolean" Nullable="false" />
+          <Property Name="ProductSupplier" Type="Boolean" Nullable="false" />
+          <Property Name="ProductWarehouse" Type="Boolean" Nullable="false" />
+          <Property Name="Forwarder" Type="Boolean" Nullable="false" />
+          <Property Name="SemoSubscriber" Type="Boolean" Nullable="false" />
+          <Property Name="TaxTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WebURL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Fax" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Comments" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CommentsPrintable" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyRegistrationNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhysicalPersonFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhysicalPersonIdentityNo" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="PhysicalPersonTerritorialCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhysicalPersonAdvancePartner" Type="Boolean" />
+          <Property Name="PhysicalPersonGender" Type="Byte" />
+          <Property Name="PhysicalPersonPassportOrganization" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PhysicalPersonPassportNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhysicalPersonPassportDate" Type="DateTime" Precision="3" />
+          <Property Name="PhysicalPersonTaxDocumentSerial" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhysicalPersonTaxDocumentNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhysicalPersonTaxDocumentOrganization" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhysicalPersonTaxRegNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhysicalPersonPensioner" Type="Boolean" />
+          <Property Name="PhysicalPersonPrisoner" Type="Boolean" />
+          <Property Name="PhysicalPersonTaxSocialTypeID" Type="Int32" />
+          <Property Name="PhysicalPersonBirthDate" Type="DateTime" Precision="3" />
+          <Property Name="PhysicalPersonIncomeTypeID" Type="Int32" />
+          <Property Name="PhysicalPersonURVNamount" Type="Boolean" />
+          <Property Name="PhysicalPersonFirstNameDative" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PartnerNameDative" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PhysicalPersonFirstNameAccusative" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PartnerNameAccusative" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="GLNCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateUserID" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateUserID" Type="Int32" />
+          <NavigationProperty Name="FinancialDocs" Relationship="Self.FK_FinancialDoc_Partner" FromRole="Partner" ToRole="FinancialDoc" />
+          <NavigationProperty Name="FinancialDocs1" Relationship="Self.FK_FinancialDoc_Partner2" FromRole="Partner" ToRole="FinancialDoc" />
+        </EntityType>
+        <Association Name="FK_Account_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="Account1" Type="Self.Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="Account1">
+              <PropertyRef Name="SyntheticAccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FinancialDocLine_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="FinancialDocLine" Type="Self.FinancialDocLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="FinancialDocLine">
+              <PropertyRef Name="DebetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FinancialDocLine_Account1">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="FinancialDocLine" Type="Self.FinancialDocLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="FinancialDocLine">
+              <PropertyRef Name="CreditID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DocumentType_DocumentGroup">
+          <End Role="DocumentGroup" Type="Self.DocumentGroup" Multiplicity="0..1" />
+          <End Role="DocumentType" Type="Self.DocumentType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocumentGroup">
+              <PropertyRef Name="DocumentGroupID" />
+            </Principal>
+            <Dependent Role="DocumentType">
+              <PropertyRef Name="DefaultDocumentGroup" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FinancialDoc_DocumentGroup">
+          <End Role="DocumentGroup" Type="Self.DocumentGroup" Multiplicity="1" />
+          <End Role="FinancialDoc" Type="Self.FinancialDoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocumentGroup">
+              <PropertyRef Name="DocumentGroupID" />
+            </Principal>
+            <Dependent Role="FinancialDoc">
+              <PropertyRef Name="DocumentGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FinancialDoc_DocumentType">
+          <End Role="DocumentType" Type="Self.DocumentType" Multiplicity="1" />
+          <End Role="FinancialDoc" Type="Self.FinancialDoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocumentType">
+              <PropertyRef Name="DocumentTypeID" />
+            </Principal>
+            <Dependent Role="FinancialDoc">
+              <PropertyRef Name="DocumentTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FinancialDoc_FinancialDoc">
+          <End Role="FinancialDoc" Type="Self.FinancialDoc" Multiplicity="0..1" />
+          <End Role="FinancialDoc1" Type="Self.FinancialDoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FinancialDoc">
+              <PropertyRef Name="FinancialDocID" />
+            </Principal>
+            <Dependent Role="FinancialDoc1">
+              <PropertyRef Name="CancelDocID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FinancialDoc_Partner">
+          <End Role="Partner" Type="Self.Partner" Multiplicity="0..1" />
+          <End Role="FinancialDoc" Type="Self.FinancialDoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partner">
+              <PropertyRef Name="PartnerID" />
+            </Principal>
+            <Dependent Role="FinancialDoc">
+              <PropertyRef Name="PartnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FinancialDoc_Partner2">
+          <End Role="Partner" Type="Self.Partner" Multiplicity="0..1" />
+          <End Role="FinancialDoc" Type="Self.FinancialDoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partner">
+              <PropertyRef Name="PartnerID" />
+            </Principal>
+            <Dependent Role="FinancialDoc">
+              <PropertyRef Name="ContactID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FinancialDocLine_DisbursementDoc">
+          <End Role="FinancialDoc" Type="Self.FinancialDoc" Multiplicity="0..1" />
+          <End Role="FinancialDocLine" Type="Self.FinancialDocLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FinancialDoc">
+              <PropertyRef Name="FinancialDocID" />
+            </Principal>
+            <Dependent Role="FinancialDocLine">
+              <PropertyRef Name="DisbursementDocID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FinancialDocLine_FinancialDoc">
+          <End Role="FinancialDoc" Type="Self.FinancialDoc" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FinancialDocLine" Type="Self.FinancialDocLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FinancialDoc">
+              <PropertyRef Name="FinancialDocID" />
+            </Principal>
+            <Dependent Role="FinancialDocLine">
+              <PropertyRef Name="FinancialDocID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TildesJumisFinancialDBContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="Self.Account" />
+          <EntitySet Name="DocumentGroups" EntityType="Self.DocumentGroup" />
+          <EntitySet Name="DocumentTypes" EntityType="Self.DocumentType" />
+          <EntitySet Name="FinancialDocs" EntityType="Self.FinancialDoc" />
+          <EntitySet Name="FinancialDocLines" EntityType="Self.FinancialDocLine" />
+          <EntitySet Name="Partners" EntityType="Self.Partner" />
+          <AssociationSet Name="FK_Account_Account" Association="Self.FK_Account_Account">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Account1" EntitySet="Accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FinancialDocLine_Account" Association="Self.FK_FinancialDocLine_Account">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="FinancialDocLine" EntitySet="FinancialDocLines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FinancialDocLine_Account1" Association="Self.FK_FinancialDocLine_Account1">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="FinancialDocLine" EntitySet="FinancialDocLines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DocumentType_DocumentGroup" Association="Self.FK_DocumentType_DocumentGroup">
+            <End Role="DocumentGroup" EntitySet="DocumentGroups" />
+            <End Role="DocumentType" EntitySet="DocumentTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FinancialDoc_DocumentGroup" Association="Self.FK_FinancialDoc_DocumentGroup">
+            <End Role="DocumentGroup" EntitySet="DocumentGroups" />
+            <End Role="FinancialDoc" EntitySet="FinancialDocs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FinancialDoc_DocumentType" Association="Self.FK_FinancialDoc_DocumentType">
+            <End Role="DocumentType" EntitySet="DocumentTypes" />
+            <End Role="FinancialDoc" EntitySet="FinancialDocs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FinancialDoc_FinancialDoc" Association="Self.FK_FinancialDoc_FinancialDoc">
+            <End Role="FinancialDoc" EntitySet="FinancialDocs" />
+            <End Role="FinancialDoc1" EntitySet="FinancialDocs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FinancialDoc_Partner" Association="Self.FK_FinancialDoc_Partner">
+            <End Role="Partner" EntitySet="Partners" />
+            <End Role="FinancialDoc" EntitySet="FinancialDocs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FinancialDoc_Partner2" Association="Self.FK_FinancialDoc_Partner2">
+            <End Role="Partner" EntitySet="Partners" />
+            <End Role="FinancialDoc" EntitySet="FinancialDocs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FinancialDocLine_DisbursementDoc" Association="Self.FK_FinancialDocLine_DisbursementDoc">
+            <End Role="FinancialDoc" EntitySet="FinancialDocs" />
+            <End Role="FinancialDocLine" EntitySet="FinancialDocLines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FinancialDocLine_FinancialDoc" Association="Self.FK_FinancialDocLine_FinancialDoc">
+            <End Role="FinancialDoc" EntitySet="FinancialDocs" />
+            <End Role="FinancialDocLine" EntitySet="FinancialDocLines" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="invest2014ModelStoreContainer" CdmEntityContainer="TildesJumisFinancialDBContext">
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="invest2014Model.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="AccountCode" ColumnName="AccountCode" />
+                <ScalarProperty Name="AccountName" ColumnName="AccountName" />
+                <ScalarProperty Name="AccountLocation" ColumnName="AccountLocation" />
+                <ScalarProperty Name="AnalyticalAccount" ColumnName="AnalyticalAccount" />
+                <ScalarProperty Name="BalanceGroup" ColumnName="BalanceGroup" />
+                <ScalarProperty Name="SyntheticAccountID" ColumnName="SyntheticAccountID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DocumentGroups">
+            <EntityTypeMapping TypeName="invest2014Model.DocumentGroup">
+              <MappingFragment StoreEntitySet="DocumentGroup">
+                <ScalarProperty Name="DocumentGroupID" ColumnName="DocumentGroupID" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="GroupShortName" ColumnName="GroupShortName" />
+                <ScalarProperty Name="GroupOrder" ColumnName="GroupOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DocumentTypes">
+            <EntityTypeMapping TypeName="invest2014Model.DocumentType">
+              <MappingFragment StoreEntitySet="DocumentType">
+                <ScalarProperty Name="DocumentTypeID" ColumnName="DocumentTypeID" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="TypeShortName" ColumnName="TypeShortName" />
+                <ScalarProperty Name="CategoryAccountSide" ColumnName="CategoryAccountSide" />
+                <ScalarProperty Name="DefaultDocumentGroup" ColumnName="DefaultDocumentGroup" />
+                <ScalarProperty Name="WarehouseDocumentType" ColumnName="WarehouseDocumentType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FinancialDocs">
+            <EntityTypeMapping TypeName="invest2014Model.FinancialDoc">
+              <MappingFragment StoreEntitySet="FinancialDoc">
+                <ScalarProperty Name="FinancialDocID" ColumnName="FinancialDocID" />
+                <ScalarProperty Name="FinancialDocNo" ColumnName="FinancialDocNo" />
+                <ScalarProperty Name="FinancialDocNoSerial" ColumnName="FinancialDocNoSerial" />
+                <ScalarProperty Name="DocumentTypeID" ColumnName="DocumentTypeID" />
+                <ScalarProperty Name="DocumentGroupID" ColumnName="DocumentGroupID" />
+                <ScalarProperty Name="AccountingObjectID" ColumnName="AccountingObjectID" />
+                <ScalarProperty Name="FinancialDocDate" ColumnName="FinancialDocDate" />
+                <ScalarProperty Name="DocStatus" ColumnName="DocStatus" />
+                <ScalarProperty Name="DocChangeStatus" ColumnName="DocChangeStatus" />
+                <ScalarProperty Name="DocCurrencyID" ColumnName="DocCurrencyID" />
+                <ScalarProperty Name="DocAmount" ColumnName="DocAmount" />
+                <ScalarProperty Name="DocAmountLocked" ColumnName="DocAmountLocked" />
+                <ScalarProperty Name="PartnerID" ColumnName="PartnerID" />
+                <ScalarProperty Name="PartnerVatCountryID" ColumnName="PartnerVatCountryID" />
+                <ScalarProperty Name="PartnerVatNo" ColumnName="PartnerVatNo" />
+                <ScalarProperty Name="PartnerContactPerson" ColumnName="PartnerContactPerson" />
+                <ScalarProperty Name="CompanyVatCountryID" ColumnName="CompanyVatCountryID" />
+                <ScalarProperty Name="CompanyVatNo" ColumnName="CompanyVatNo" />
+                <ScalarProperty Name="ContactID" ColumnName="ContactID" />
+                <ScalarProperty Name="CancelDocID" ColumnName="CancelDocID" />
+                <ScalarProperty Name="DisbursementTerm" ColumnName="DisbursementTerm" />
+                <ScalarProperty Name="Disbursement" ColumnName="Disbursement" />
+                <ScalarProperty Name="DisbursementDate" ColumnName="DisbursementDate" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="DocRegDate" ColumnName="DocRegDate" />
+                <ScalarProperty Name="DocRegNo" ColumnName="DocRegNo" />
+                <ScalarProperty Name="DocRegNoIndex" ColumnName="DocRegNoIndex" />
+                <ScalarProperty Name="SemoDocGUID" ColumnName="SemoDocGUID" />
+                <ScalarProperty Name="CreateUserID" ColumnName="CreateUserID" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UpdateUserID" ColumnName="UpdateUserID" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="DocComputedNo" ColumnName="DocComputedNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FinancialDocLines">
+            <EntityTypeMapping TypeName="invest2014Model.FinancialDocLine">
+              <MappingFragment StoreEntitySet="FinancialDocLine">
+                <ScalarProperty Name="FinancialDocLineID" ColumnName="FinancialDocLineID" />
+                <ScalarProperty Name="FinancialDocID" ColumnName="FinancialDocID" />
+                <ScalarProperty Name="LineDate" ColumnName="LineDate" />
+                <ScalarProperty Name="CurrencyID" ColumnName="CurrencyID" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="DebetID" ColumnName="DebetID" />
+                <ScalarProperty Name="CreditID" ColumnName="CreditID" />
+                <ScalarProperty Name="MainLine" ColumnName="MainLine" />
+                <ScalarProperty Name="BudgetItemID" ColumnName="BudgetItemID" />
+                <ScalarProperty Name="PayCode" ColumnName="PayCode" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="VatRate" ColumnName="VatRate" />
+                <ScalarProperty Name="DisbursementDocID" ColumnName="DisbursementDocID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Partners">
+            <EntityTypeMapping TypeName="invest2014Model.Partner">
+              <MappingFragment StoreEntitySet="Partner">
+                <ScalarProperty Name="PartnerID" ColumnName="PartnerID" />
+                <ScalarProperty Name="PhysicalPerson" ColumnName="PhysicalPerson" />
+                <ScalarProperty Name="PartnerName" ColumnName="PartnerName" />
+                <ScalarProperty Name="PartnerTitle" ColumnName="PartnerTitle" />
+                <ScalarProperty Name="PartnerCode" ColumnName="PartnerCode" />
+                <ScalarProperty Name="PartnerTypeID" ColumnName="PartnerTypeID" />
+                <ScalarProperty Name="TerritorialCodeSEZ" ColumnName="TerritorialCodeSEZ" />
+                <ScalarProperty Name="BlockedPartner" ColumnName="BlockedPartner" />
+                <ScalarProperty Name="LockedPartner" ColumnName="LockedPartner" />
+                <ScalarProperty Name="ProductSupplier" ColumnName="ProductSupplier" />
+                <ScalarProperty Name="ProductWarehouse" ColumnName="ProductWarehouse" />
+                <ScalarProperty Name="Forwarder" ColumnName="Forwarder" />
+                <ScalarProperty Name="SemoSubscriber" ColumnName="SemoSubscriber" />
+                <ScalarProperty Name="TaxTypeID" ColumnName="TaxTypeID" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="WebURL" ColumnName="WebURL" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="CommentsPrintable" ColumnName="CommentsPrintable" />
+                <ScalarProperty Name="CompanyRegistrationNumber" ColumnName="CompanyRegistrationNumber" />
+                <ScalarProperty Name="PhysicalPersonFirstName" ColumnName="PhysicalPersonFirstName" />
+                <ScalarProperty Name="PhysicalPersonIdentityNo" ColumnName="PhysicalPersonIdentityNo" />
+                <ScalarProperty Name="PhysicalPersonTerritorialCode" ColumnName="PhysicalPersonTerritorialCode" />
+                <ScalarProperty Name="PhysicalPersonAdvancePartner" ColumnName="PhysicalPersonAdvancePartner" />
+                <ScalarProperty Name="PhysicalPersonGender" ColumnName="PhysicalPersonGender" />
+                <ScalarProperty Name="PhysicalPersonPassportOrganization" ColumnName="PhysicalPersonPassportOrganization" />
+                <ScalarProperty Name="PhysicalPersonPassportNo" ColumnName="PhysicalPersonPassportNo" />
+                <ScalarProperty Name="PhysicalPersonPassportDate" ColumnName="PhysicalPersonPassportDate" />
+                <ScalarProperty Name="PhysicalPersonTaxDocumentSerial" ColumnName="PhysicalPersonTaxDocumentSerial" />
+                <ScalarProperty Name="PhysicalPersonTaxDocumentNo" ColumnName="PhysicalPersonTaxDocumentNo" />
+                <ScalarProperty Name="PhysicalPersonTaxDocumentOrganization" ColumnName="PhysicalPersonTaxDocumentOrganization" />
+                <ScalarProperty Name="PhysicalPersonTaxRegNo" ColumnName="PhysicalPersonTaxRegNo" />
+                <ScalarProperty Name="PhysicalPersonPensioner" ColumnName="PhysicalPersonPensioner" />
+                <ScalarProperty Name="PhysicalPersonPrisoner" ColumnName="PhysicalPersonPrisoner" />
+                <ScalarProperty Name="PhysicalPersonTaxSocialTypeID" ColumnName="PhysicalPersonTaxSocialTypeID" />
+                <ScalarProperty Name="PhysicalPersonBirthDate" ColumnName="PhysicalPersonBirthDate" />
+                <ScalarProperty Name="PhysicalPersonIncomeTypeID" ColumnName="PhysicalPersonIncomeTypeID" />
+                <ScalarProperty Name="PhysicalPersonURVNamount" ColumnName="PhysicalPersonURVNamount" />
+                <ScalarProperty Name="PhysicalPersonFirstNameDative" ColumnName="PhysicalPersonFirstNameDative" />
+                <ScalarProperty Name="PartnerNameDative" ColumnName="PartnerNameDative" />
+                <ScalarProperty Name="PhysicalPersonFirstNameAccusative" ColumnName="PhysicalPersonFirstNameAccusative" />
+                <ScalarProperty Name="PartnerNameAccusative" ColumnName="PartnerNameAccusative" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="GLNCode" ColumnName="GLNCode" />
+                <ScalarProperty Name="CreateUserID" ColumnName="CreateUserID" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UpdateUserID" ColumnName="UpdateUserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

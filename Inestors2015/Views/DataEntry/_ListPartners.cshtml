@@ -1,0 +1,53 @@
+﻿@using Investors2015.ViewModels
+@model IEnumerable<Investors2015.Models.PartnerCustomModel>
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PhysicalPerson)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PartnerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PartnerTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhysicalPersonFirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PartnerFullName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhysicalPerson)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PartnerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PartnerTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhysicalPersonFirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PartnerFullName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

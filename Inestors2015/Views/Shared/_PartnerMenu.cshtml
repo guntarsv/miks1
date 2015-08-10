@@ -1,0 +1,19 @@
+﻿@model Investors2015.ViewModels.PartnerDropDownViewModel
+
+
+@Html.DropDownListFor(m => m.SelectedPartnerId, Model.SelectListPartners, "izvēlies db",
+                new
+                {
+                    @class = "form-control btn btn-default dropdown-toggle",
+                    style = "width: auto;",
+                    onchange = "redirect(this.options[this.selectedIndex].text)"
+                })
+<br />
+tagad = @Model.SelectedPartnerId
+<br />
+database list last updated:&nbsp;@DateTime.Now.ToLongTimeString();
+<br />
+@Html.HiddenFor(m => m.SelectedPartnerName, new { @class = "SelectedPartnerName" })
+
+
+

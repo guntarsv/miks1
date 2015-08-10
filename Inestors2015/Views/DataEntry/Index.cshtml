@@ -1,0 +1,50 @@
+﻿@using Investors2015.Models
+@using Investors2015.ViewModels
+@using Microsoft.AspNet.Identity
+@model DataEntryIndexViewModel
+
+<script>
+    function redirect(dropDownValue) {
+        $("#TextArea1").html(dropDownValue);
+    };
+
+</script>
+
+@{
+    ViewBag.Title = "Data Entry";
+}
+
+
+@section SideBar {
+
+    <div id="datubazeDropDownPlaceholder">
+
+     @{ Html.RenderPartial("~/Views/Shared/_DatabaseDropDown.cshtml", Model.DatabaseDropDownViewModel); }
+
+    </div>
+    <br />
+
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+<div>
+
+        <div id="partnerDropDownPlaceholder"></div>
+        <br />
+    
+        <input type="submit" value="Search" onclick="loadPartnerNames();" />
+
+
+  
+
+    @*<div id="blabla"></div>*@
+
+</div>
+</body>
+</html>
