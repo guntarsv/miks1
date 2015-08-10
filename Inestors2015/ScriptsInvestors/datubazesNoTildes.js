@@ -1,6 +1,6 @@
 ﻿
 
-
+// mika first change
 
 // 0. HttpPOST
 // 1. load Partners for one DB (AJAX)
