@@ -191,9 +191,11 @@
     <Compile Include="Models\FinancialDoc.cs">
       <DependentUpon>TildesJumisModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FinancialDocCM.cs" />
     <Compile Include="Models\FinancialDocLine.cs">
       <DependentUpon>TildesJumisModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FinancialDocLineCM.cs" />
     <Compile Include="Models\PartnerCustomModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
