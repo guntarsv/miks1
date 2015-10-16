@@ -67,11 +67,12 @@ namespace Inestors2015.Models
 
         public override int GetHashCode()
         {
-            int arg_07_0 = this.DebetId;
-            int hashDebetID = this.DebetId.GetHashCode();
-            int arg_1D_0 = this.CreditId;
-            int hashCreditID = this.CreditId.GetHashCode();
-            return hashDebetID ^ hashCreditID;
+            int debetId = this.DebetId;
+            int hashCode1 = this.DebetId.GetHashCode();
+            int creditId = this.CreditId;
+            int hashCode2 = this.CreditId.GetHashCode();
+            return hashCode1 ^ hashCode2;
+
         }
     }
 }

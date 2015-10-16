@@ -42,12 +42,10 @@ namespace Investors2015.Controllers
             if (this.DataEntryIndexViewModel == null)
             {
                 this.DataEntryIndexViewModel = new DataEntryIndexViewModel();
-                List<Datubaze> listDatubazes = Datubaze.GetDatabasesFromTilde();
-                DatabaseDropDownViewModel databaseDropDownViewModel = new DatabaseDropDownViewModel(listDatubazes);
-                this.DataEntryIndexViewModel.DatabaseDropDownViewModel = databaseDropDownViewModel;
+                this.DataEntryIndexViewModel.DatabaseDropDownViewModel = new DatabaseDropDownViewModel(Datubaze.GetDatabasesFromTilde());
                 this.DataEntryIndexViewModel.PartnerDropDownViewModel = new PartnerDropDownViewModel();
             }
-            return base.View(this.DataEntryIndexViewModel);
+            return (ActionResult)this.View((object)this.DataEntryIndexViewModel);
         }
 
         [HttpGet]
@@ -60,27 +58,19 @@ namespace Investors2015.Controllers
 
         public JsonResult GetTest(string term, string datubaze)
         {
-            List<PartnerCustomModel> partnerCustomModels = new List<PartnerCustomModel>();
+            List<PartnerCustomModel> list = new List<PartnerCustomModel>();
             try
             {
-                partnerCustomModels = PartnerCustomModel.GetSelectListPartners(datubaze, term);
+                list = PartnerCustomModel.GetSelectListPartners(datubaze, term);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
             }
-            JsonResult result;
-            if (partnerCustomModels == null)
-            {
-                result = null;
-            }
-            else
-            {
-                Dictionary<string, string> partnerDictionary = partnerCustomModels.ToDictionary((PartnerCustomModel o) => o.PartnerId.ToString(), (PartnerCustomModel o) => o.PartnerFullName);
-                partnerDictionary.Add("skaits", partnerDictionary.Count.ToString());
-                JsonResult t = base.Json(partnerDictionary, JsonRequestBehavior.AllowGet);
-                result = t;
-            }
-            return result;
+            if (list == null)
+                return (JsonResult)null;
+            Dictionary<string, string> dictionary = Enumerable.ToDictionary<PartnerCustomModel, string, string>((IEnumerable<PartnerCustomModel>)list, (Func<PartnerCustomModel, string>)(o => o.PartnerId.ToString()), (Func<PartnerCustomModel, string>)(o => o.PartnerFullName));
+            dictionary.Add("skaits", dictionary.Count.ToString());
+            return this.Json((object)dictionary, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ForTestingPurposes(PartnerDropDownViewModel pdn)
